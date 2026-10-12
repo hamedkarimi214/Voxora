@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Cyan Blue AI Waveform Emblem.ico</ApplicationIcon>
+    <BaseOutputPath>C:\Users\Hamed-Karimi\Desktop\Voxora\Output\Voxora</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Cyan Blue AI Waveform Emblem.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+</Project>
