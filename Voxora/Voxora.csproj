@@ -14,8 +14,4 @@
     <Content Include="Cyan Blue AI Waveform Emblem.ico" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
