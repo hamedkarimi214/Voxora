@@ -1,15 +1,15 @@
 ﻿<Window x:Class="Voxora.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Voxora"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        MaxWidth="{Binding WindowSize.WindowWidth}" MaxHeight="{Binding WindowSize.WindowHeight}">
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        Title="Voxora"
+        WindowStartupLocation="Manual"
+        Left="0" Top="0"
+        Width="{Binding WindowSize.WindowWidth}"
+        Height="{Binding WindowSize.WindowHeight}">
 
     <Grid>
-        
+
     </Grid>
 
 </Window>

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Voxora.Models;
+﻿using Voxora.Models;
 
 namespace Voxora.ViewModels
 {
     public class MainWindowViewModel
     {
         // Property for set window size
-        public WindowSizeManager WindowSize { get; set; }
+        public WindowSizeManager WindowSize { get; set; } = new WindowSizeManager();
 
         // Constructor
         public MainWindowViewModel()
         {
-            // Assign WindowSize property
-            WindowSize = new WindowSizeManager();
+            // Set window size
+            WindowSize.SetWindowSize();
         }
     }
 }

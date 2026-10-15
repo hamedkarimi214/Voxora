@@ -1,19 +1,18 @@
-﻿using System.Windows;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Data;
 using Voxora.ViewModels;
 
 namespace Voxora
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
-            InitializeComponent();
-
-            // Set data context
             DataContext = new MainWindowViewModel();
+
+            InitializeComponent();
         }
     }
 }

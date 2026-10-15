@@ -7,8 +7,7 @@ namespace Voxora.Models
 {
     public class WindowSizeManager
     {
-        // Constructor
-        public WindowSizeManager()
+        public void SetWindowSize()
         {
             // Set window width
             WindowWidth = SystemParameters.PrimaryScreenWidth * 0.7;
@@ -18,9 +17,9 @@ namespace Voxora.Models
         }
 
         // Window width property
-        public double WindowWidth { get; set; }
+        public double WindowWidth { get; set; } = 600;
 
         // Window height property
-        public double WindowHeight { get; set; }
+        public double WindowHeight { get; set; } = 600;
     }
 }
