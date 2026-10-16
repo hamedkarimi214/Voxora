@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using Voxora.ViewModels;
 
 namespace Voxora
