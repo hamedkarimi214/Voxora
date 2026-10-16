@@ -3,49 +3,73 @@ using Voxora.Models;
 
 namespace Voxora.ViewModels
 {
+    /// <summary>
+    /// ViewModel for the MainWindow, handling commands, state, and window interactions.
+    /// </summary>
     public class MainWindowViewModel
     {
-        // Property for set window size
+        /// <summary>
+        /// Gets or sets the window size manager responsible for calculating dynamic window dimensions.
+        /// </summary>
         public WindowSizeManager WindowSize { get; set; } = new WindowSizeManager();
 
-        // Interface for window setting
+        /// <summary>
+        /// Service interface used to execute window operations (Close, Minimize, Maximize/Restore).
+        /// </summary>
         private IWindowService _windowService;
 
-        // Close command
+        /// <summary>
+        /// Gets or sets the command executed when closing the window.
+        /// </summary>
         public ICommand WindowClose { get; set; }
-        // Change window state command
+
+        /// <summary>
+        /// Gets or sets the command executed when toggling the window state (Maximized/Normal).
+        /// </summary>
         public ICommand WindowState { get; set; }
-        // Minimize window command
+
+        /// <summary>
+        /// Gets or sets the command executed when minimizing the window.
+        /// </summary>
         public ICommand WindowMinimize { get; set; }
 
-        // Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
+        /// <param name="windowService">The window service instance for window control.</param>
         public MainWindowViewModel(IWindowService windowService)
         {
-            // Set window size
+            // Set initial dynamic window dimensions
             WindowSize.SetWindowSize();
 
-            // Assign window service
+            // Assign the passed window service instance
             _windowService = windowService;
 
-            // Assign commands
+            // Initialize commands with their respective execution methods
             WindowClose = new RelayCommand(CloseMethod);
             WindowState = new RelayCommand(WindowStateMethod);
             WindowMinimize = new RelayCommand(MinimizeMethod);
         }
 
-        // Method for close window
+        /// <summary>
+        /// Invokes the window service method to close the application window.
+        /// </summary>
         private void CloseMethod()
         {
             _windowService.WindowClose();
         }
 
-        // Method for change window state
+        /// <summary>
+        /// Invokes the window service method to toggle between maximized and normal window states.
+        /// </summary>
         private void WindowStateMethod()
         {
             _windowService.WindowState();
         }
 
-        // Method for minimize window
+        /// <summary>
+        /// Invokes the window service method to minimize the application window.
+        /// </summary>
         private void MinimizeMethod()
         {
             _windowService.WindowMinimize();
