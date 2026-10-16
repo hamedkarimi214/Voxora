@@ -220,7 +220,8 @@
             </Grid.ColumnDefinitions>
 
             <!-- ===================== ۱. هدر بالای صفحه ===================== -->
-            <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#0B0F1A" CornerRadius="14,14,0,0" BorderBrush="#151D2E" BorderThickness="0,0,0,1">
+            <!-- هدر بالای برنامه با قابلیت درگ و جابه‌جایی پنجره -->
+            <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#0B0F1A" CornerRadius="14,14,0,0" BorderBrush="#151D2E" BorderThickness="0,0,0,1" MouseLeftButtonDown="HeaderGrid_MouseDown">
                 <Grid Margin="20,0,16,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -245,13 +246,13 @@
                     <!-- دکمه‌های کنترل پنجره و آیکون تنظیمات بالا سمت راست -->
                     <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2,0,4">
-                            <Button Style="{StaticResource WindowControlButton}">
+                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowMinimize}">
                                 <Rectangle Width="10" Height="1.5" Fill="#7E8BA3"/>
                             </Button>
-                            <Button Style="{StaticResource WindowControlButton}" Margin="4,0">
+                            <Button Style="{StaticResource WindowControlButton}" Margin="4,0" Command="{Binding WindowState}">
                                 <Rectangle Width="9" Height="9" Stroke="#7E8BA3" StrokeThickness="1.3" RadiusX="1" RadiusY="1"/>
                             </Button>
-                            <Button Style="{StaticResource WindowControlButton}">
+                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowClose}">
                                 <Path Data="M0,0 L8,8 M8,0 L0,8" Stroke="#7E8BA3" StrokeThickness="1.4" Width="8" Height="8" Stretch="Uniform"/>
                             </Button>
                         </StackPanel>
