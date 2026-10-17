@@ -1,78 +1,94 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Voxora.Models;
 
 namespace Voxora.ViewModels
 {
-    /// <summary>
-    /// ViewModel for the MainWindow, handling commands, state, and window interactions.
-    /// </summary>
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Gets or sets the window size manager responsible for calculating dynamic window dimensions.
-        /// </summary>
+        // Manages the window dimensions
         public WindowSizeManager WindowSize { get; set; } = new WindowSizeManager();
 
-        /// <summary>
-        /// Service interface used to execute window operations (Close, Minimize, Maximize/Restore).
-        /// </summary>
+        // Handles window operations
         private IWindowService _windowService;
 
-        /// <summary>
-        /// Gets or sets the command executed when closing the window.
-        /// </summary>
-        public ICommand WindowClose { get; set; }
+        // Window control commands
+        public ICommand WindowCloseCommand { get; set; }
+        public ICommand WindowStateCommand { get; set; }
+        public ICommand WindowMinimizeCommand { get; set; }
 
-        /// <summary>
-        /// Gets or sets the command executed when toggling the window state (Maximized/Normal).
-        /// </summary>
-        public ICommand WindowState { get; set; }
+        // Tracks the recording state
+        private bool _isRecording = false;
 
-        /// <summary>
-        /// Gets or sets the command executed when minimizing the window.
-        /// </summary>
-        public ICommand WindowMinimize { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
-        /// </summary>
-        /// <param name="windowService">The window service instance for window control.</param>
-        public MainWindowViewModel(IWindowService windowService)
+        public bool IsRecording
         {
-            // Set initial dynamic window dimensions
-            WindowSize.SetWindowSize();
-
-            // Assign the passed window service instance
-            _windowService = windowService;
-
-            // Initialize commands with their respective execution methods
-            WindowClose = new RelayCommand(CloseMethod);
-            WindowState = new RelayCommand(WindowStateMethod);
-            WindowMinimize = new RelayCommand(MinimizeMethod);
+            get => _isRecording;
+            set
+            {
+                _isRecording = value;
+                OnPropertyChanged();
+            }
         }
 
-        /// <summary>
-        /// Invokes the window service method to close the application window.
-        /// </summary>
+        // Starts and stops recording
+        public ICommand RecordCommand { get; set; }
+
+        private RecordManager Record;
+
+        // Initializes the ViewModel and its commands
+        public MainWindowViewModel(IWindowService windowService)
+        {
+            WindowSize.SetWindowSize();
+            _windowService = windowService;
+
+            // Connect commands to their methods
+            WindowCloseCommand = new RelayCommand(CloseMethod);
+            WindowStateCommand = new RelayCommand(WindowStateMethod);
+            WindowMinimizeCommand = new RelayCommand(MinimizeMethod);
+            RecordCommand = new RelayCommand(RecordMethod);
+        }
+
+        // Closes the window
         private void CloseMethod()
         {
             _windowService.WindowClose();
         }
 
-        /// <summary>
-        /// Invokes the window service method to toggle between maximized and normal window states.
-        /// </summary>
+        // Toggles the recording state
+        private void RecordMethod()
+        {
+            IsRecording = !IsRecording;
+
+            if (IsRecording)
+            {
+                Record = new RecordManager();
+                Record.StartRecording();
+            }
+            else
+            {
+                Record.StopRecording();
+            }
+        }
+
+        // Changes the window state
         private void WindowStateMethod()
         {
             _windowService.WindowState();
         }
 
-        /// <summary>
-        /// Invokes the window service method to minimize the application window.
-        /// </summary>
+        // Minimizes the window
         private void MinimizeMethod()
         {
             _windowService.WindowMinimize();
+        }
+
+        // Notifies the UI when a property changes
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

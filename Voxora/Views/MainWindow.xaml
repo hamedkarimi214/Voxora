@@ -152,30 +152,154 @@
         </Style>
 
         <!-- استایل دکمه ضبط بزرگ مرکزی -->
+        <!-- استایل پیشرفته دکمه ضبط با قابلیت تغییر ظاهر -->
         <Style x:Key="RecordButtonLarge" TargetType="Button">
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid Width="130" Height="130">
-                            <Ellipse Width="128" Height="128" Stroke="#192544" StrokeThickness="1.5" Fill="#0D1426" Opacity="0.7"/>
-                            <Ellipse Width="112" Height="112" Stroke="#233460" StrokeThickness="1.5" Fill="#111A30" Opacity="0.9"/>
-                            <Border x:Name="back" Width="92" Height="92" CornerRadius="46" Background="{StaticResource BrandGradient}">
+                        <Grid Width="150" Height="150">
+
+
+                            <!-- حلقه بیرونی قرمز -->
+                            <Ellipse x:Name="PulseRing1"
+                                     Width="135" Height="135"
+                                     Stroke="#EF4444" StrokeThickness="1.5"
+                                     Opacity="0"
+                                     RenderTransformOrigin="0.5,0.5">
+                                <Ellipse.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+
+                            <!-- حلقه میانی -->
+                            <Ellipse x:Name="PulseRing2"
+                                     Width="120" Height="120"
+                                     Stroke="#192544" StrokeThickness="1.5"
+                                     Fill="#0D1426" Opacity="0.7"
+                                     RenderTransformOrigin="0.5,0.5">
+                                <Ellipse.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+
+                            <!-- حلقه داخلی -->
+                            <Ellipse x:Name="PulseRing3"
+                                     Width="105" Height="105"
+                                     Stroke="#233460" StrokeThickness="1.5"
+                                     Fill="#111A30" Opacity="0.9"/>
+
+                            <!-- بدنه اصلی دکمه -->
+                            <Border x:Name="ButtonBack"
+                                    Width="88" Height="88" CornerRadius="44"
+                                    Background="{StaticResource BrandGradient}"
+                                    RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </Border.RenderTransform>
                                 <Border.Effect>
-                                    <DropShadowEffect Color="#6366F1" BlurRadius="30" ShadowDepth="0" Opacity="0.45"/>
+                                    <DropShadowEffect Color="#6366F1" BlurRadius="30"
+                                                      ShadowDepth="0" Opacity="0.45"/>
                                 </Border.Effect>
-                                <Path Data="M12,2 C9.79,2 8,3.79 8,6 L8,13 C8,15.21 9.79,17 12,17 C14.21,17 16,15.21 16,13 L16,6 C16,3.79 14.21,2 12,2 Z M19,11 C19,14.53 16.39,17.44 13,17.93 L13,21 L11,21 L11,17.93 C7.61,17.44 5,14.53 5,11 L7,11 C7,13.76 9.24,16 12,16 C14.76,16 17,13.76 17,11 L19,11 Z"
-                                      Fill="White" Stretch="Uniform" Width="28" Height="34" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <!-- آیکون میکروفون -->
+                                <Path x:Name="ButtonIcon"
+                                      Data="M12,2 C9.79,2 8,3.79 8,6 L8,13 C8,15.21 9.79,17 12,17 C14.21,17 16,15.21 16,13 L16,6 C16,3.79 14.21,2 12,2 Z M19,11 C19,14.53 16.39,17.44 13,17.93 L13,21 L11,21 L11,17.93 C7.61,17.44 5,14.53 5,11 L7,11 C7,13.76 9.24,16 12,16 C14.76,16 17,13.76 17,11 L19,11 Z"
+                                      Fill="White" Stretch="Uniform" Width="26" Height="32"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </Grid>
+
                         <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsRecording}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="BeginRecordingPulse">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PulseRing1"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     From="0.75" To="0"
+                                                     Duration="0:0:1.1"
+                                                     RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="PulseRing1"
+                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                     From="0.72" To="1.12"
+                                                     Duration="0:0:1.1"
+                                                     RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="PulseRing1"
+                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                     From="0.72" To="1.12"
+                                                     Duration="0:0:1.1"
+                                                     RepeatBehavior="Forever"/>
+
+                                            <DoubleAnimation Storyboard.TargetName="PulseRing2"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     From="0.65" To="0.15"
+                                                     Duration="0:0:1.1"
+                                                     AutoReverse="True"
+                                                     RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="PulseRing2"
+                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                     From="0.92" To="1.06"
+                                                     Duration="0:0:1.1"
+                                                     AutoReverse="True"
+                                                     RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="PulseRing2"
+                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                     From="0.92" To="1.06"
+                                                     Duration="0:0:1.1"
+                                                     AutoReverse="True"
+                                                     RepeatBehavior="Forever"/>
+
+                                            <DoubleAnimation Storyboard.TargetName="ButtonBack"
+                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                     From="1" To="1.07"
+                                                     Duration="0:0:0.65"
+                                                     AutoReverse="True"
+                                                     RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonBack"
+                                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                     From="1" To="1.07"
+                                                     Duration="0:0:0.65"
+                                                     AutoReverse="True"
+                                                     RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="ButtonIcon"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     From="1" To="0.72"
+                                                     Duration="0:0:0.65"
+                                                     AutoReverse="True"
+                                                     RepeatBehavior="Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="BeginRecordingPulse"/>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="back" Property="Opacity" Value="0.92"/>
+                                <Setter TargetName="ButtonBack" Property="Opacity" Value="0.92"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- متن دکمه ضبط به وضعیت IsRecording متصل است -->
+        <Style x:Key="RecordTitleText" TargetType="TextBlock">
+            <Setter Property="Text" Value="Start Recording"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsRecording}" Value="True">
+                    <Setter Property="Text" Value="Recording..."/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RecordSubtitleText" TargetType="TextBlock">
+            <Setter Property="Text" Value="Press the button to start recording your voice"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsRecording}" Value="True">
+                    <Setter Property="Text" Value="Your voice is being recorded"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
         <!-- استایل دکمه‌های آیکونی کوچک در کارت‌ها -->
@@ -246,13 +370,13 @@
                     <!-- دکمه‌های کنترل پنجره و آیکون تنظیمات بالا سمت راست -->
                     <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2,0,4">
-                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowMinimize}">
+                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowMinimizeCommand}">
                                 <Rectangle Width="10" Height="1.5" Fill="#7E8BA3"/>
                             </Button>
-                            <Button Style="{StaticResource WindowControlButton}" Margin="4,0" Command="{Binding WindowState}">
+                            <Button Style="{StaticResource WindowControlButton}" Margin="4,0" Command="{Binding WindowStateCommand}">
                                 <Rectangle Width="9" Height="9" Stroke="#7E8BA3" StrokeThickness="1.3" RadiusX="1" RadiusY="1"/>
                             </Button>
-                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowClose}">
+                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowCloseCommand}">
                                 <Path Data="M0,0 L8,8 M8,0 L0,8" Stroke="#7E8BA3" StrokeThickness="1.4" Width="8" Height="8" Stretch="Uniform"/>
                             </Button>
                         </StackPanel>
@@ -316,7 +440,8 @@
                 </Grid.RowDefinitions>
 
                 <!-- کارت بالایی: Start Recording با موج‌های پس‌زمینه -->
-                <Border Grid.Row="0" CornerRadius="12" ClipToBounds="True" Margin="0,0,0,12">
+                <!-- کارت ضبط صدا با قابلیت تغییر وضعیت پویا -->
+                <Border x:Name="RecordCardBorder" Grid.Row="0" CornerRadius="12" ClipToBounds="True" Margin="0,0,0,12">
                     <Border.Background>
                         <RadialGradientBrush Center="0.5,0.42" GradientOrigin="0.5,0.42" RadiusX="0.65" RadiusY="0.7">
                             <GradientStop Color="#131E3A" Offset="0"/>
@@ -324,17 +449,33 @@
                         </RadialGradientBrush>
                     </Border.Background>
                     <Grid>
-                        <!-- امواج منحنی پس‌زمینه مشابه عکس -->
-                        <Path Data="M0,130 C110,60 200,170 310,110 C420,50 510,150 640,95 L640,250 L0,250 Z"
-                              Fill="{StaticResource WaveFillGradient}" Stroke="#1E3264" StrokeThickness="1.2" Stretch="Fill" Opacity="0.65" VerticalAlignment="Bottom" Height="150"/>
-                        <Path Data="M0,155 C130,195 240,95 360,145 C480,195 550,120 640,155 L640,250 L0,250 Z"
-                              Fill="{StaticResource WaveFillGradient}" Stroke="#192852" StrokeThickness="1" Stretch="Fill" Opacity="0.5" VerticalAlignment="Bottom" Height="125"/>
+                        <!-- تغییر رنگ ظریف کارت هنگام ضبط؛ وضعیت از ViewModel می‌آید -->
+                        <Border x:Name="RecordingCardTint"
+                                Background="#30EF4444"
+                                Opacity="0"
+                                IsHitTestVisible="False">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Opacity" Value="0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRecording}" Value="True">
+                                            <Setter Property="Opacity" Value="0.22"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+
+                        <!-- امواج منحنی پس‌زمینه -->
+                        <Path Data="M0,130 C110,60 200,170 310,110 C420,50 510,150 640,95 L640,250 L0,250 Z" Fill="{StaticResource WaveFillGradient}" Stroke="#1E3264" StrokeThickness="1.2" Stretch="Fill" Opacity="0.65" VerticalAlignment="Bottom" Height="150"/>
 
                         <!-- دکمه میکروفون و متن‌ها -->
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,6,0,0">
-                            <Button Style="{StaticResource RecordButtonLarge}" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Start Recording" FontWeight="SemiBold" FontSize="15.5" Foreground="#FFFFFF" HorizontalAlignment="Center" Margin="0,12,0,5"/>
-                            <TextBlock Text="Press the button to start recording your voice" FontSize="12" Foreground="#7E8BA3" HorizontalAlignment="Center"/>
+                            <!-- دکمه اصلی ضبط با رویداد Click -->
+                            <Button x:Name="BtnRecordAction" Style="{StaticResource RecordButtonLarge}" HorizontalAlignment="Center" Command="{Binding RecordCommand}"/>
+
+                            <TextBlock x:Name="TxtRecordTitle" Style="{StaticResource RecordTitleText}" FontWeight="SemiBold" FontSize="15.5" Foreground="#FFFFFF" HorizontalAlignment="Center" Margin="0,12,0,5"/>
+                            <TextBlock x:Name="TxtRecordSubtitle" Style="{StaticResource RecordSubtitleText}" FontSize="12" Foreground="#7E8BA3" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Border>

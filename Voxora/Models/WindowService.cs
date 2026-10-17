@@ -2,44 +2,30 @@
 
 namespace Voxora.Models
 {
-    /// <summary>
-    /// Implementation of <see cref="IWindowService"/> to manipulate WPF Window states.
-    /// </summary>
     public class WindowService : IWindowService
     {
-        /// <summary>
-        /// Reference to the target WPF Window instance.
-        /// </summary>
+        // Stores the window managed by this service
         private Window _window;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WindowService"/> class.
-        /// </summary>
-        /// <param name="window">The window to be managed.</param>
+        // Initializes the service with a target window
         public WindowService(Window window)
         {
             _window = window;
         }
 
-        /// <summary>
-        /// Closes the managed window.
-        /// </summary>
+        // Closes the window
         public void WindowClose()
         {
             _window.Close();
         }
 
-        /// <summary>
-        /// Minimizes the managed window.
-        /// </summary>
+        // Minimizes the window
         public void WindowMinimize()
         {
             _window.WindowState = System.Windows.WindowState.Minimized;
         }
 
-        /// <summary>
-        /// Toggles the window state between Maximized and Normal.
-        /// </summary>
+        // Toggles between maximized and normal states
         public void WindowState()
         {
             if (_window.WindowState == System.Windows.WindowState.Maximized)

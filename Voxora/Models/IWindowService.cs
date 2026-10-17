@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Voxora.Models
+﻿namespace Voxora.Models
 {
-    /// <summary>
-    /// Defines methods for controlling window operations from ViewModels.
-    /// </summary>
     public interface IWindowService
     {
-        /// <summary>
-        /// Closes the window.
-        /// </summary>
+        // Closes the window
         void WindowClose();
 
-        /// <summary>
-        /// Toggles the window state (Maximized/Normal).
-        /// </summary>
+        // Toggles between maximized and normal states
         void WindowState();
 
-        /// <summary>
-        /// Minimizes the window.
-        /// </summary>
+        // Minimizes the window
         void WindowMinimize();
     }
 }
