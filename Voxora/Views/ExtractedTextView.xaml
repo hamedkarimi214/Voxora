@@ -225,7 +225,6 @@
 
                         <Border Grid.Row="1" Background="#090F1C" BorderBrush="#1B2945" BorderThickness="1" CornerRadius="10" Padding="4">
                             <TextBox x:Name="ExtractedTextEditor"
-                                 Text="{Binding ExtractedText, UpdateSourceTrigger=PropertyChanged}"
                                  Background="Transparent"
                                  Foreground="#DCE5F8"
                                  CaretBrush="#8B9EFF"

@@ -420,7 +420,8 @@
                         <Button x:Name="BtnRecordAction"
                             Style="{StaticResource RecordButtonLarge}"
                             HorizontalAlignment="Center"
-                            Command="{Binding RecordCommand}"/>
+                            Command="{Binding RecordCommand}"
+                            IsEnabled="{Binding whisperService.CanRecord}"/>
 
                         <TextBlock 
                                FontWeight="SemiBold"

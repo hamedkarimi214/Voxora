@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Voxora.Models;
+using Voxora.ViewModels;
 
 namespace Voxora.Views
 {
@@ -17,9 +19,15 @@ namespace Voxora.Views
     /// </summary>
     public partial class ExtractedTextView : Window
     {
-        public ExtractedTextView()
+        public ExtractedTextView(string text)
         {
             InitializeComponent();
+
+            var windowService = new WindowService(this);
+
+            DataContext = new ExtractedTextViewViewModel(windowService);
+
+            ExtractedTextEditor.Text = text;
         }
 
         // Allows the window to be dragged by its header

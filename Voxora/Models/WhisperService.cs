@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using Voxora.Views;
 
 namespace Voxora.Models
 {
@@ -20,15 +23,23 @@ namespace Voxora.Models
             }
         }
 
+        private bool _canRecord = true;
+        public bool CanRecord
+        {
+            get => _canRecord;
+            set
+            {
+                if (_canRecord == value)
+                    return;
+
+                _canRecord = value;
+                OnPropertyChanged(nameof(CanRecord));
+            }
+        }
+
         public void TranscribeVoice(string soundName)
         {
-            IsTranscribing = true;
-            Thread thread = new Thread(() =>
-            {
-                TranscribeThread(soundName);
-            });
-            thread.IsBackground = true;
-            thread.Start();
+            TranscribeThread(soundName);
         }
 
         private void TranscribeThread(string soundName)
@@ -41,12 +52,38 @@ namespace Voxora.Models
             psi.FileName = "cmd.exe";
             psi.Arguments = $"/c {command}";
             psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
 
             Process process = new Process();
             process.StartInfo = psi;
             process.Start();
             process.WaitForExit();
+            ShowTranscribedVoid(Path.GetFileNameWithoutExtension(soundName));
             IsTranscribing = false;
+            CanRecord = true;
+        }
+
+        private void ShowTranscribedVoid(string soundName)
+        {
+            string fullAddress = $"{AppDomain.CurrentDomain.BaseDirectory}\\{soundName}.txt";
+
+            string text = GetTextOfFile(fullAddress);
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                MessageBox.Show("No text extract.");
+                return;
+            }
+
+            ExtractedTextView textView = new ExtractedTextView(text);
+            textView.Show();
+        }
+
+        private string GetTextOfFile(string fileAddress)
+        {
+            string txt = File.ReadAllText(fileAddress);
+
+            return txt;
         }
 
         // Notifies the UI when a property changes
