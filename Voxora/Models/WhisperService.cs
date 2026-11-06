@@ -39,14 +39,24 @@ namespace Voxora.Models
 
         public void TranscribeVoice(string soundName)
         {
-            TranscribeThread(soundName);
+            IsTranscribing = true;
+            CanRecord = false;
+            Thread thread = new Thread(() =>
+            {
+                TranscribeThread(soundName);
+
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.Start();
         }
 
         private void TranscribeThread(string soundName)
         {
             string fileAddress = $"{Environment.CurrentDirectory}\\Sounds\\{soundName}";
 
-            string command = $"whisper \"{fileAddress}\" --model turbo --language fa";
+            string command = $"whisper \"{fileAddress}\" --model turbo --language en";
 
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";

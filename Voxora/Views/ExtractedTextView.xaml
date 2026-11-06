@@ -7,6 +7,7 @@
         Foreground="White" 
         AllowsTransparency="True"
         WindowStyle="None"
+        Topmost="True"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -150,8 +151,8 @@
             <!-- Page heading -->
             <Grid  Grid.Row="1" Margin="28,24,28,18">
                 <StackPanel>
-                    <TextBlock Text="متن استخراج‌شده" FontSize="25" FontWeight="SemiBold" Foreground="#F8FAFC"/>
-                    <TextBlock Text="متن تبدیل‌شده از صدا را بررسی، جست‌وجو و ذخیره کن."
+                    <TextBlock Text="Extracted Text" FontSize="25" FontWeight="SemiBold" Foreground="#F8FAFC"/>
+                    <TextBlock Text="Review, search, and save the text converted from audio."
                            FontSize="12.5" Foreground="#8290AA" Margin="0,7,0,0"/>
                 </StackPanel>
             </Grid>
@@ -179,14 +180,14 @@
                                     </Viewbox>
                                 </Border>
                                 <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="محتوای متن" FontSize="12.5" FontWeight="SemiBold" Foreground="#E2E8F0"/>
-                                    <TextBlock Text="قابل انتخاب و ویرایش" FontSize="10.5" Foreground="#64748B" Margin="0,3,0,0"/>
+                                    <TextBlock Text="Text content" FontSize="12.5" FontWeight="SemiBold" Foreground="#E2E8F0"/>
+                                    <TextBlock Text="Selectable and editable" FontSize="10.5" Foreground="#64748B" Margin="0,3,0,0"/>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                <Button Style="{StaticResource ToolbarButton}" Content="کپی متن" Command="{Binding CopyTextCommand}" ToolTip="کپی متن استخراج‌شده"/>
-                                <Button Style="{StaticResource PrimaryButton}" Content="ذخیره فایل" Command="{Binding ExportTextCommand}" ToolTip="ذخیره متن در فایل" Margin="0"/>
+                                <Button Style="{StaticResource ToolbarButton}" Content="Copy text" Command="{Binding CopyTextCommand}" ToolTip="Copy extracted text"/>
+                                <Button Style="{StaticResource PrimaryButton}" Content="Save file" Command="{Binding ExportTextCommand}" ToolTip="Save text to file" Margin="0"/>
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -220,11 +221,12 @@
                                     </TextBox.InputBindings>
                                 </TextBox>
                             </Border>
-                            <Button Grid.Column="1" Style="{StaticResource ToolbarButton}" Content="جست‌وجو" Command="{Binding FindTextCommand}" Margin="8,0,0,0"/>
+                            <Button Grid.Column="1" Style="{StaticResource ToolbarButton}" Content="Search" Command="{Binding FindTextCommand}" Margin="8,0,0,0"/>
                         </Grid>
 
                         <Border Grid.Row="1" Background="#090F1C" BorderBrush="#1B2945" BorderThickness="1" CornerRadius="10" Padding="4">
                             <TextBox x:Name="ExtractedTextEditor"
+                                     Text="{Binding ExtractedText, Mode=TwoWay}"
                                  Background="Transparent"
                                  Foreground="#DCE5F8"
                                  CaretBrush="#8B9EFF"
@@ -238,11 +240,11 @@
                                  VerticalScrollBarVisibility="Auto"
                                  HorizontalScrollBarVisibility="Disabled"
                                  SelectionBrush="#3B4D91"
-                                 FlowDirection="RightToLeft"
+                                 FlowDirection="LeftToRight"
                                  VerticalContentAlignment="Top"
                                  SpellCheck.IsEnabled="True"
-                                 AutomationProperties.Name="متن استخراج‌شده از صدا"
-                                 ToolTip="متن استخراج‌شده در این قسمت نمایش داده می‌شود؛ می‌توانی آن را ویرایش کنی."/>
+                                 AutomationProperties.Name="Extracted text as audio"
+                                 ToolTip="The extracted text is displayed here; you can edit it."/>
                         </Border>
                     </Grid>
                 </Grid>
@@ -252,9 +254,9 @@
             <Grid Grid.Row="3" Margin="28,0,28,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Ellipse Width="6" Height="6" Fill="#64748B" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Voxora · فضای کار متن" FontSize="10.5" Foreground="#64748B" VerticalAlignment="Center"/>
+                    <TextBlock Text="Voxora · Text Workspace" FontSize="10.5" Foreground="#64748B" VerticalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Text="{Binding TextStatus, FallbackValue=آماده}"
+                <TextBlock Text="{Binding TextStatus, FallbackValue=Ready}"
                        HorizontalAlignment="Right" VerticalAlignment="Center"
                        FontSize="10.5" Foreground="#64748B"/>
             </Grid>

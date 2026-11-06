@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Voxora.Models;
 using Voxora.ViewModels;
 
@@ -25,9 +16,7 @@ namespace Voxora.Views
 
             var windowService = new WindowService(this);
 
-            DataContext = new ExtractedTextViewViewModel(windowService);
-
-            ExtractedTextEditor.Text = text;
+            DataContext = new ExtractedTextViewViewModel(windowService, text);
         }
 
         // Allows the window to be dragged by its header
