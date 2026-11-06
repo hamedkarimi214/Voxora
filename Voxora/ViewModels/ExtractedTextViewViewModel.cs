@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Voxora.Models;
-using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;
+using System.IO;
 
 namespace Voxora.ViewModels
 {
@@ -20,6 +16,7 @@ namespace Voxora.ViewModels
         public ICommand WindowStateCommand { get; set; }
         public ICommand WindowMinimizeCommand { get; set; }
         public ICommand CopyTextCommand { get; set; }
+        public ICommand ExportTextCommand { get; set; }
 
         public ExtractedTextViewViewModel(WindowService windowService, string textExtract)
         {
@@ -30,6 +27,7 @@ namespace Voxora.ViewModels
             WindowStateCommand = new RelayCommand(WindowStateMethod);
             WindowMinimizeCommand = new RelayCommand(MinimizeMethod);
             CopyTextCommand = new RelayCommand(CopyTextMethod);
+            ExportTextCommand = new RelayCommand(ExportTextMethod);
 
             ExtractedText = textExtract;
         }
@@ -67,6 +65,22 @@ namespace Voxora.ViewModels
         private void CopyTextMethod()
         {
             System.Windows.Forms.Clipboard.SetText(ExtractedText);
+        }
+
+        // Export text to file
+        private void ExportTextMethod()
+        {
+            if (string.IsNullOrWhiteSpace(ExtractedText))
+                return;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog.FilterIndex = 1;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(saveFileDialog.FileName, ExtractedText);
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

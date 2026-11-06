@@ -205,21 +205,20 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Border CornerRadius="14" BorderThickness="1" BorderBrush="#253352">
-                                <TextBox x:Name="SearchTextBox"
-                                         Grid.Column="0"
+                                <Grid>
+                                    <TextBox x:Name="SearchTextBox"
                                          Background="Transparent"
                                          BorderThickness="0"
                                          Style="{StaticResource DarkInput}"
-                                         Width="260"
-                                         HorizontalAlignment="Right"
                                          Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
-                                         ToolTip="عبارت موردنظر را جست‌وجو کن"
-                                         FlowDirection="RightToLeft"
+                                         ToolTip="Search"
+                                         FlowDirection="LeftToRight"
                                          VerticalContentAlignment="Center">
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Key="Enter" Command="{Binding FindTextCommand}"/>
-                                    </TextBox.InputBindings>
-                                </TextBox>
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Key="Enter" Command="{Binding FindTextCommand}"/>
+                                        </TextBox.InputBindings>
+                                    </TextBox>
+                                </Grid>
                             </Border>
                             <Button Grid.Column="1" Style="{StaticResource ToolbarButton}" Content="Search" Command="{Binding FindTextCommand}" Margin="8,0,0,0"/>
                         </Grid>
