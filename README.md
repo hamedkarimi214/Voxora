@@ -144,7 +144,7 @@ CPU-based inference may also be possible depending on the backend and model.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/https://github.com/hamedkarimi214/Voxora.git
+git clone https://github.com/hamedkarimi214/Voxora.git
 ```
 
 ### 2. Navigate to the Project Directory
