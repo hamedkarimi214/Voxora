@@ -1,5 +1,6 @@
 ﻿using NAudio.Wave;
-using System.IO;
+using System;
+using System.Windows;
 
 namespace Voxora.Models
 {
@@ -11,11 +12,18 @@ namespace Voxora.Models
 
         public RecordManager(string fileAddress)
         {
+            if (WaveIn.DeviceCount < 1)
+            {
+                MessageBox.Show("Microphone not found.");
+                return;
+            }
+
             _format = new WaveFormat(16000, 1);
 
             _file = new WaveFileWriter(fileAddress, _format);
 
             _input = new WaveIn();
+            _input.DeviceNumber = 0;
             _input.WaveFormat = _format;
 
             _input.DataAvailable += _input_DataAvailable;
