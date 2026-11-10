@@ -2,15 +2,24 @@
 
 namespace Voxora.Models
 {
+    /// <summary>
+    /// Manages the window dimensions based on the screen resolution.
+    /// </summary>
     public class WindowSizeManager
     {
-        // Gets or sets the window width
+        /// <summary>
+        /// Gets or sets the window width.
+        /// </summary>
         public double WindowWidth { get; set; } = 600;
 
-        // Gets or sets the window height
+        /// <summary>
+        /// Gets or sets the window height.
+        /// </summary>
         public double WindowHeight { get; set; } = 600;
 
-        // Sets window dimensions based on screen resolution
+        /// <summary>
+        /// Sets the window dimensions to 70% of the primary screen resolution.
+        /// </summary>
         public void SetWindowSize()
         {
             // Use 70% of the screen width

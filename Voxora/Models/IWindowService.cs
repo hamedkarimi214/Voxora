@@ -1,14 +1,23 @@
 ﻿namespace Voxora.Models
 {
+    /// <summary>
+    /// Defines the contract for managing window operations.
+    /// </summary>
     public interface IWindowService
     {
-        // Closes the window
+        /// <summary>
+        /// Closes the current window.
+        /// </summary>
         void WindowClose();
 
-        // Toggles between maximized and normal states
+        /// <summary>
+        /// Toggles the window between maximized and normal states.
+        /// </summary>
         void WindowState();
 
-        // Minimizes the window
+        /// <summary>
+        /// Minimizes the current window.
+        /// </summary>
         void WindowMinimize();
     }
 }
