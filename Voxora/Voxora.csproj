@@ -7,7 +7,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Cyan Blue AI Waveform Emblem.ico</ApplicationIcon>
-    <BaseOutputPath>C:\Users\Hamed-Karimi\Desktop\Voxora\Output\Voxora</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

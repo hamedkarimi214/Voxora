@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Voxora.Models;
@@ -7,6 +8,8 @@ namespace Voxora.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        string fileAddress = "";
+
         // Manages the window dimensions
         public WindowSizeManager WindowSize { get; set; } = new WindowSizeManager();
 
@@ -28,6 +31,20 @@ namespace Voxora.ViewModels
             {
                 _isRecording = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private bool _isTranscribing;
+        public bool IsTranscribing
+        {
+            get => _isTranscribing;
+            set
+            {
+                if (_isTranscribing == value)
+                    return;
+
+                _isTranscribing = value;
+                OnPropertyChanged(nameof(IsTranscribing));
             }
         }
 
@@ -62,12 +79,17 @@ namespace Voxora.ViewModels
 
             if (IsRecording)
             {
-                Record = new RecordManager();
+                fileAddress = CreateSoundName();
+                Record = new RecordManager(fileAddress);
                 Record.StartRecording();
             }
             else
             {
+                IsTranscribing = true;
                 Record.StopRecording();
+                IWhisperService whisperService = new WhisperService();
+                whisperService.TranscribeVoice(Path.GetFileName(fileAddress));
+                IsTranscribing = false;
             }
         }
 
@@ -85,10 +107,54 @@ namespace Voxora.ViewModels
 
         // Notifies the UI when a property changes
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string CreateSoundName()
+        {
+            string fileAddress = "";
+
+            string folderAddress = Path.Combine(Environment.CurrentDirectory, "Sounds");
+
+            if (!Directory.Exists(folderAddress))
+            {
+                Directory.CreateDirectory(folderAddress);
+                fileAddress = $"{folderAddress}\\Voxora1.wav";
+            }
+            else
+            {
+                var file = Directory.EnumerateFiles(folderAddress, "*.wav")
+                    .Where(f => Path.GetFileName(f).StartsWith("Voxora"));
+
+                HashSet<int> foundedNum = new HashSet<int>();
+                string str = "";
+
+                foreach (var f in file)
+                {
+                    str = Path.GetFileNameWithoutExtension(f);
+                    str = str.Substring(6);
+
+                    if (int.TryParse(str, out int outNum))
+                        foundedNum.Add(outNum);
+                }
+
+                int checkedNumber = 1;
+
+                while (true)
+                {
+                    if (foundedNum.Contains(checkedNumber))
+                        checkedNumber++;
+                    else
+                    {
+                        fileAddress = $"{folderAddress}\\Voxora{checkedNumber}.wav";
+                        break;
+                    }
+                }
+            }
+
+            return fileAddress;
         }
     }
 }

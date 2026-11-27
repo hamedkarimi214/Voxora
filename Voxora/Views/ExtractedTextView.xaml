@@ -1,0 +1,264 @@
+﻿<Window x:Class="Voxora.Views.ExtractedTextView" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        Width="{Binding WindowSize.WindowWidth}" Height="{Binding WindowSize.WindowHeight}"
+        MinWidth="760" MinHeight="560"
+        Background="Transparent" 
+        Foreground="White" 
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#4F6EF7" Offset="0"/>
+            <GradientStop Color="#8B5CF6" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="WindowControlButton" TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#1A233A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ToolbarButton" TargetType="Button">
+            <Setter Property="Foreground" Value="#DCE5F8"/>
+            <Setter Property="Background" Value="#111A2D"/>
+            <Setter Property="BorderBrush" Value="#253352"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,9"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#192643"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#4F6EF7"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource ToolbarButton}">
+            <Setter Property="Background" Value="{StaticResource BrandGradient}"/>
+            <Setter Property="BorderBrush" Value="#6D6AF5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="DarkInput" TargetType="TextBox">
+            <Setter Property="Background" Value="#0D1424"/>
+            <Setter Property="Foreground" Value="#E2E8F0"/>
+            <Setter Property="CaretBrush" Value="#8B9EFF"/>
+            <Setter Property="BorderBrush" Value="#253352"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,9"/>
+            <Setter Property="FontSize" Value="12.5"/>
+            <Setter Property="SelectionBrush" Value="#4F6EF7"/>
+        </Style>
+
+        <Style x:Key="CardBorder" TargetType="Border">
+            <Setter Property="Background" Value="#0D1424"/>
+            <Setter Property="BorderBrush" Value="#192544"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="14"/>
+        </Style>
+    </Window.Resources>
+
+    <Border CornerRadius="14" Background="#0A0E17">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="72"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="34"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.ColumnSpan="3" Background="#0B0F1A" CornerRadius="14,14,0,0" BorderBrush="#151D2E" BorderThickness="0,0,0,1" MouseLeftButtonDown="HeaderGrid_MouseDown">
+                <Grid Margin="20,0,16,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- لوگو و عنوان Voxora -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Canvas Width="28" Height="28" VerticalAlignment="Center" Margin="0,0,12,0">
+                            <Rectangle Width="3.5" Height="10" RadiusX="1.7" RadiusY="1.7" Fill="#3B82F6" Canvas.Left="2" Canvas.Top="9"/>
+                            <Rectangle Width="3.5" Height="20" RadiusX="1.7" RadiusY="1.7" Fill="#4F86F7" Canvas.Left="8" Canvas.Top="4"/>
+                            <Rectangle Width="3.5" Height="26" RadiusX="1.7" RadiusY="1.7" Fill="#60A5FA" Canvas.Left="14" Canvas.Top="1"/>
+                            <Rectangle Width="3.5" Height="16" RadiusX="1.7" RadiusY="1.7" Fill="#4F86F7" Canvas.Left="20" Canvas.Top="6"/>
+                            <Ellipse Width="3.5" Height="3.5" Fill="#3B82F6" Canvas.Left="26" Canvas.Top="12.5"/>
+                        </Canvas>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Voxora" FontSize="18" FontWeight="Bold" Foreground="#FFFFFF"/>
+                            <TextBlock Text="Your Voice, Your Words" FontSize="11" Foreground="#4B7BF5" Margin="0,1,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- دکمه‌های کنترل پنجره و آیکون تنظیمات بالا سمت راست -->
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2,0,4">
+                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowMinimizeCommand}">
+                                <Rectangle Width="10" Height="1.5" Fill="#7E8BA3"/>
+                            </Button>
+                            <Button Style="{StaticResource WindowControlButton}" Margin="4,0" Command="{Binding WindowStateCommand}">
+                                <Rectangle Width="9" Height="9" Stroke="#7E8BA3" StrokeThickness="1.3" RadiusX="1" RadiusY="1"/>
+                            </Button>
+                            <Button Style="{StaticResource WindowControlButton}" Command="{Binding WindowCloseCommand}">
+                                <Path Data="M0,0 L8,8 M8,0 L0,8" Stroke="#7E8BA3" StrokeThickness="1.4" Width="8" Height="8" Stretch="Uniform"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Page heading -->
+            <Grid  Grid.Row="1" Margin="28,24,28,18">
+                <StackPanel>
+                    <TextBlock Text="متن استخراج‌شده" FontSize="25" FontWeight="SemiBold" Foreground="#F8FAFC"/>
+                    <TextBlock Text="متن تبدیل‌شده از صدا را بررسی، جست‌وجو و ذخیره کن."
+                           FontSize="12.5" Foreground="#8290AA" Margin="0,7,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Main text workspace -->
+            <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="28,0,28,12" ClipToBounds="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Toolbar -->
+                    <Border Grid.Row="0" CornerRadius="12" Background="#0B1120" BorderBrush="#192544" BorderThickness="1" Padding="16,13">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Width="32" Height="32" CornerRadius="8" Background="#172445" Margin="0,0,10,0">
+                                    <Viewbox Width="16" Height="16">
+                                        <Path Fill="#8B9EFF" Data="M4,2 L20,2 L20,4 L4,4 Z M4,7 L20,7 L20,9 L4,9 Z M4,12 L16,12 L16,14 L4,14 Z M4,17 L18,17 L18,19 L4,19 Z"/>
+                                    </Viewbox>
+                                </Border>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="محتوای متن" FontSize="12.5" FontWeight="SemiBold" Foreground="#E2E8F0"/>
+                                    <TextBlock Text="قابل انتخاب و ویرایش" FontSize="10.5" Foreground="#64748B" Margin="0,3,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Style="{StaticResource ToolbarButton}" Content="کپی متن" Command="{Binding CopyTextCommand}" ToolTip="کپی متن استخراج‌شده"/>
+                                <Button Style="{StaticResource PrimaryButton}" Content="ذخیره فایل" Command="{Binding ExportTextCommand}" ToolTip="ذخیره متن در فایل" Margin="0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Editor area -->
+                    <Grid Grid.Row="1" Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border CornerRadius="14" BorderThickness="1" BorderBrush="#253352">
+                                <TextBox x:Name="SearchTextBox"
+                                         Grid.Column="0"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Style="{StaticResource DarkInput}"
+                                         Width="260"
+                                         HorizontalAlignment="Right"
+                                         Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                                         ToolTip="عبارت موردنظر را جست‌وجو کن"
+                                         FlowDirection="RightToLeft"
+                                         VerticalContentAlignment="Center">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding FindTextCommand}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                            </Border>
+                            <Button Grid.Column="1" Style="{StaticResource ToolbarButton}" Content="جست‌وجو" Command="{Binding FindTextCommand}" Margin="8,0,0,0"/>
+                        </Grid>
+
+                        <Border Grid.Row="1" Background="#090F1C" BorderBrush="#1B2945" BorderThickness="1" CornerRadius="10" Padding="4">
+                            <TextBox x:Name="ExtractedTextEditor"
+                                 Text="{Binding ExtractedText, UpdateSourceTrigger=PropertyChanged}"
+                                 Background="Transparent"
+                                 Foreground="#DCE5F8"
+                                 CaretBrush="#8B9EFF"
+                                 BorderThickness="0"
+                                 Padding="18,16"
+                                 FontFamily="Segoe UI"
+                                 FontSize="14"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 AcceptsTab="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 HorizontalScrollBarVisibility="Disabled"
+                                 SelectionBrush="#3B4D91"
+                                 FlowDirection="RightToLeft"
+                                 VerticalContentAlignment="Top"
+                                 SpellCheck.IsEnabled="True"
+                                 AutomationProperties.Name="متن استخراج‌شده از صدا"
+                                 ToolTip="متن استخراج‌شده در این قسمت نمایش داده می‌شود؛ می‌توانی آن را ویرایش کنی."/>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Footer status -->
+            <Grid Grid.Row="3" Margin="28,0,28,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Width="6" Height="6" Fill="#64748B" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Voxora · فضای کار متن" FontSize="10.5" Foreground="#64748B" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="{Binding TextStatus, FallbackValue=آماده}"
+                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                       FontSize="10.5" Foreground="#64748B"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

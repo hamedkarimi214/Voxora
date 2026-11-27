@@ -12,9 +12,9 @@ namespace Voxora
         {
             var windowService = new WindowService(this);
 
-            DataContext = new MainWindowViewModel(windowService);
-
             InitializeComponent();
+
+            DataContext = new MainWindowViewModel(windowService);
         }
 
         // Allows the window to be dragged by its header
@@ -24,15 +24,6 @@ namespace Voxora
             {
                 this.DragMove();
             }
-        }
-
-        private bool _isRecording = false;
-
-        private System.Windows.Media.Animation.Storyboard _pulseStoryboard =
-            new System.Windows.Media.Animation.Storyboard();
-
-        private void RecordButton_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }
