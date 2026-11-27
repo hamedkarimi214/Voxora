@@ -466,7 +466,7 @@
                                 <Setter Property="Opacity" Value="0"/>
 
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsTranscribing}"
+                                    <DataTrigger Binding="{Binding whisperService.IsTranscribing}"
                          Value="True">
                                         <Setter Property="Visibility" Value="Visible"/>
                                         <Setter Property="Opacity" Value="1"/>

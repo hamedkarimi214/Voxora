@@ -34,20 +34,6 @@ namespace Voxora.ViewModels
             }
         }
 
-        private bool _isTranscribing;
-        public bool IsTranscribing
-        {
-            get => _isTranscribing;
-            set
-            {
-                if (_isTranscribing == value)
-                    return;
-
-                _isTranscribing = value;
-                OnPropertyChanged(nameof(IsTranscribing));
-            }
-        }
-
         // Starts and stops recording
         public ICommand RecordCommand { get; set; }
 
@@ -72,6 +58,8 @@ namespace Voxora.ViewModels
             _windowService.WindowClose();
         }
 
+        public IWhisperService whisperService { get; set; } = new WhisperService();
+
         // Toggles the recording state
         private void RecordMethod()
         {
@@ -85,11 +73,8 @@ namespace Voxora.ViewModels
             }
             else
             {
-                IsTranscribing = true;
                 Record.StopRecording();
-                IWhisperService whisperService = new WhisperService();
                 whisperService.TranscribeVoice(Path.GetFileName(fileAddress));
-                IsTranscribing = false;
             }
         }
 
